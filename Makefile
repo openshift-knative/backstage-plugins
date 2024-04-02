@@ -18,7 +18,7 @@ install:
 .PHONY: install
 
 test-e2e:
-	sh openshift/e2e-tests.sh
+	./openshift/e2e-tests.sh
 .PHONY: test-e2e
 
 # Generate an aggregated knative release yaml file, as well as a CI file with replaced image references
