@@ -24,7 +24,6 @@ function resolve_resources(){
         -e "s+ko://++" \
         -e "s+eventing.knative.dev/release: devel+eventing.knative.dev/release: ${release}+" \
         -e "s+app.kubernetes.io/version: devel+app.kubernetes.io/version: ${release}+" \
-        -e "s+knative.dev/backstage-plugins/backends/cmd/eventmesh+${image_prefix}backstage-plugin-backend-eventmesh${image_tag}+" \
         -e "s+\(.* image: \)\(knative.dev\)\(.*/\)\(.*\)+\1${image_prefix}\4${image_tag}+g" \
         "$yaml" >> "$resolved_file_name"
   done
