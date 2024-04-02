@@ -10,12 +10,6 @@ TEST_IMAGE_TAG ?= latest
 # Guess location of openshift/release repo. NOTE: override this if it is not correct.
 OPENSHIFT=${CURDIR}/../../github.com/openshift/release
 
-install:
-	for img in $(CORE_IMAGES); do \
-		go install $$img ; \
-	done
-.PHONY: install
-
 test-e2e:
 	./openshift/e2e-tests.sh
 .PHONY: test-e2e
