@@ -20,7 +20,7 @@ mkdir -p $artifacts_dir
 image_prefix="registry.ci.openshift.org/openshift/knative-${release}:knative-backstage-plugins-"
 tag=""
 
-plugins="${artifacts_dir}/backstage-plugins.yaml"
+plugins="${artifacts_dir}/backstage-plugins-eventmesh-backend.yaml"
 
 # EventMesh Backend resources
 resolve_resources backends/config/100-eventmesh "${plugins}" "$image_prefix" "$tag"
