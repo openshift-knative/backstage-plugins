@@ -1,0 +1,3 @@
+knative.dev/backstage-plugins/backends/cmd/eventmesh: registry.ci.openshift.org/openshift/knative-backstage-plugins-eventmesh:knative-v1.12
+knative.dev/pkg/apiextensions/storageversion/cmd/migrate: registry.ci.openshift.org/openshift/knative-backstage-plugins-migrate:knative-v1.12
+knative.dev/reconciler-test/cmd/eventshub: registry.ci.openshift.org/openshift/knative-backstage-plugins-test-eventshub:knative-v1.12
