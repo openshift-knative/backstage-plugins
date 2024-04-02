@@ -2,7 +2,6 @@
 
 CGO_ENABLED=0
 GOOS=linux
-CORE_IMAGES=$(shell find ./backends/cmd -name main.go | sed 's|/main.go||')
 BRANCH=
 TEST=
 IMAGE=
