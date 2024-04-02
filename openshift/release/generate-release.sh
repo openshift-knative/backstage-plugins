@@ -6,7 +6,7 @@ source $(dirname $0)/resolve.sh
 
 root_dir=$(dirname $0)/../..
 
-release=$(yq r openshift/project.yaml project.tag)
+release=$(yq '.project.tag' openshift/project.yaml)
 release=${release/knative-/}
 
 echo "Release: $release"
@@ -17,10 +17,10 @@ artifacts_dir="openshift/release/artifacts"
 rm -rf $artifacts_dir
 mkdir -p $artifacts_dir
 
-image_prefix="registry.ci.openshift.org/openshift/knative-${release}:knative-backstage-plugins-"
+image_prefix="registry.ci.openshift.org/openshift/knative-${release}:knative-"
 tag=""
 
 plugins="${artifacts_dir}/backstage-plugins.yaml"
 
-# Eventing CRDs
-resolve_resources backends/config "${plugins}" "$image_prefix" "$tag"
+# EventMesh Backend resources
+resolve_resources backends/config/100-eventmesh "${plugins}" "$image_prefix" "$tag"
