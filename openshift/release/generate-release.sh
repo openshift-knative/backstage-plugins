@@ -17,7 +17,7 @@ artifacts_dir="openshift/release/artifacts"
 rm -rf $artifacts_dir
 mkdir -p $artifacts_dir
 
-image_prefix="registry.ci.openshift.org/openshift/knative-${release}:knative-"
+image_prefix="registry.ci.openshift.org/openshift/knative-${release}:knative-backstage-plugins-"
 tag=""
 
 plugins="${artifacts_dir}/backstage-plugins.yaml"
