@@ -136,7 +136,7 @@ spec:
 
       containers:
         - name: controller
-          image: registry.ci.openshift.org/openshift/knative-v1.12:knative-backstage-plugin-backend-eventmesh
+          image: registry.ci.openshift.org/openshift/knative-v1.12:knative-backstage-plugins-eventmesh
           imagePullPolicy: IfNotPresent
           env:
             - name: SYSTEM_NAMESPACE
