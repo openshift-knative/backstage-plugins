@@ -7,8 +7,6 @@ TEST=
 IMAGE=
 TEST_IMAGE_TAG ?= latest
 
-# Guess location of openshift/release repo. NOTE: override this if it is not correct.
-OPENSHIFT=${CURDIR}/../../github.com/openshift/release
 
 test-e2e:
 	./openshift/e2e-tests.sh
