@@ -203,7 +203,7 @@ describe('KnativeEventMeshProcessor', () => {
                 ],
                 expectedRelations: [
                     {
-                        type: 'relation',
+                        type: 'relation AAAAAAAAAAAAAAAAA',
                         relation: {
                             type: 'apiConsumedBy',
                             source: {
