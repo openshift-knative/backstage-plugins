@@ -1,3 +1,0 @@
-# keep this file so that npm doesn't use the .gitignore file
-.eslintrc.js
-app-config.yaml
