@@ -1,4 +1,4 @@
-name: Backstage unit tests
+name: Backstage lint
 
 on:
   pull_request:
@@ -6,8 +6,7 @@ on:
       - 'release-*'
 
 jobs:
-  unit-tests:
-    name: Test
+  lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -30,10 +29,7 @@ jobs:
         working-directory: ./backstage
         run: yarn --prefer-offline --frozen-lockfile
 
-      - name: Run tests
+      - name: Lint all code
         shell: bash
         working-directory: ./backstage
-        run: |
-          export PATH="./node_modules/.bin/:$PATH"
-          yarn test
-
+        run: yarn backstage-cli repo lint
