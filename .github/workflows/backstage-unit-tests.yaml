@@ -3,7 +3,6 @@ name: Backstage unit tests
 on:
   pull_request:
     branches:
-      - main
       - 'release-*'
 
 jobs:
