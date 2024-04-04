@@ -1,3 +1,5 @@
+TEST
+
 # Openshift Knative Backstage plugins
 
 This repository holds Openshift's fork of
