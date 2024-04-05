@@ -21,4 +21,5 @@ jobs:
 
       - name: Test
         run: |
+          exit 1
           go test -v -race ./...
