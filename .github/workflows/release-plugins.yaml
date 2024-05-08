@@ -22,7 +22,6 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup release name for release branch push
-        if: github.event_name == 'push'
         run: |
           BRANCH=$(git rev-parse --abbrev-ref HEAD) #e.g. release-v1.33
           echo "Release branch: ${BRANCH}"
