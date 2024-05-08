@@ -1,0 +1,112 @@
+name: Backstage knative-event-mesh-backend
+
+on:
+  pull_request:
+    branches:
+      - 'release-*'
+    paths:
+      - 'backstage/plugins/knative-event-mesh-backend/**'
+  push:
+    branches:
+      - 'release-*'
+    paths:
+      - 'backstage/plugins/knative-event-mesh-backend/**'
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup release name for release branch push
+        if: github.event_name == 'push'
+        run: |
+          BRANCH=$(git rev-parse --abbrev-ref HEAD) #e.g. release-v1.33
+          echo "Release branch: ${BRANCH}"
+          GO111MODULE=off go get -u github.com/openshift-knative/hack/cmd/sobranch
+          SO_RELEASE_NAME=$( $(go env GOPATH)/bin/sobranch --upstream-version "${BRANCH}") # input format: "release-v1.11" or "release-1.11" or "v1.11" or "1.11"
+          # SO_RELEASE_NAME will be something like "release-1.33"
+          echo "SO_RELEASE_NAME: ${SO_RELEASE_NAME}"
+          # split the release name to get the version number
+          ## e.g. release-1.33 -> v1.33
+          BASE_RELEASE_VERSION=${SO_RELEASE_NAME#*-}
+          echo "BASE_RELEASE_VERSION: ${BASE_RELEASE_VERSION}"
+          DATE_TIME=$(date +"%Y%m%d%H%M%S")
+          RELEASE_NAME="${BASE_RELEASE_VERSION}.0-${DATE_TIME}"
+          echo "RELEASE_NAME: ${RELEASE_NAME}"
+          echo "RELEASE_NAME=${RELEASE_NAME}" >> $GITHUB_ENV
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: 'backstage/.nvmrc'
+          cache: 'yarn'
+          cache-dependency-path: 'backstage/yarn.lock'
+
+      - name: Print environment
+        run: |
+          node --version
+          yarn --version
+
+      - name: Print release name
+        run: |
+          echo "Release name: ${RELEASE_NAME}"
+
+      - name: Install dependencies
+        shell: bash
+        working-directory: ./backstage
+        run: yarn --prefer-offline --frozen-lockfile
+
+      - name: Install tooling
+        shell: bash
+        working-directory: ./backstage
+        run: npm install @backstage/cli -g
+
+      - name: Run tests
+        shell: bash
+        working-directory: ./backstage
+        run: |
+          export PATH="./node_modules/.bin/:$PATH"
+          yarn test
+
+      - name: Build
+        shell: bash
+        working-directory: ./backstage
+        run: |
+          export PATH="./node_modules/.bin/:$PATH"
+          yarn tsc
+          yarn build:all
+
+      - name: Update version of knative-event-mesh-backend plugin
+        shell: bash
+        working-directory: ./backstage/plugins/knative-event-mesh-backend
+        run: |
+          export PATH="./node_modules/.bin/:$PATH"
+          yarn version --new-version ${RELEASE_NAME} --no-git-tag-version
+
+      - name: Prepack knative-event-mesh-backend plugin
+        shell: bash
+        working-directory: ./backstage/plugins/knative-event-mesh-backend
+        run: |
+          export PATH="./node_modules/.bin/:$PATH"
+          yarn prepack
+
+      - name: Publish knative-event-mesh-backend plugin
+        uses: JS-DevTools/npm-publish@v3
+        if: github.event_name == 'push'
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          access: public
+          package: backstage/plugins/knative-event-mesh-backend
+          registry: "https://npm.pkg.github.com"
+          tag: latest
+
+      - name: Postpack knative-event-mesh-backend plugin
+        shell: bash
+        working-directory: ./backstage/plugins/knative-event-mesh-backend
+        run: |
+          export PATH="./node_modules/.bin/:$PATH"
+          yarn postpack
