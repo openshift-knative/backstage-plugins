@@ -16,6 +16,9 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write # allow GITHUB_TOKEN to publish packages
 
     steps:
       - name: Checkout
@@ -31,7 +34,7 @@ jobs:
           # SO_RELEASE_NAME will be something like "release-1.33"
           echo "SO_RELEASE_NAME: ${SO_RELEASE_NAME}"
           # split the release name to get the version number
-          ## e.g. release-1.33 -> v1.33
+          ## e.g. release-1.33 -> 1.33
           BASE_RELEASE_VERSION=${SO_RELEASE_NAME#*-}
           echo "BASE_RELEASE_VERSION: ${BASE_RELEASE_VERSION}"
           DATE_TIME=$(date +"%Y%m%d%H%M%S")
@@ -50,11 +53,6 @@ jobs:
         run: |
           node --version
           yarn --version
-
-      - name: Print release name
-        if: github.event_name == 'push'
-        run: |
-          echo "Release name: ${RELEASE_NAME}"
 
       - name: Install dependencies
         shell: bash
@@ -100,7 +98,7 @@ jobs:
         uses: JS-DevTools/npm-publish@v3
         if: github.event_name == 'push'
         with:
-          token: ${{ secrets.NPM_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           access: public
           package: backstage/plugins/knative-event-mesh-backend
           registry: "https://npm.pkg.github.com"
