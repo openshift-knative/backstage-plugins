@@ -1,5 +1,5 @@
 {
-  "name": "@knative-extensions/plugin-knative-event-mesh-backend",
+  "name": "@openshift-knative/plugin-knative-event-mesh-backend",
   "version": "0.0.0-nightly",
   "main": "src/index.ts",
   "types": "src/index.ts",
@@ -12,6 +12,11 @@
   },
   "backstage": {
     "role": "backend-plugin"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/openshift-knative/backstage-plugins.git",
+    "directory": "backstage/plugins/knative-event-mesh-backend"
   },
   "scripts": {
     "start": "backstage-cli package start",
@@ -27,7 +32,7 @@
     "@backstage/backend-tasks": "^0.5.21",
     "@backstage/config": "^1.1.1",
     "@backstage/plugin-catalog-common": "^1.0.22",
-    "@backstage/catalog-client": "^1.6.3",
+    "@backstage/catalog-client": "^1.4.6",
     "@backstage/catalog-model": "^1.4.5",
     "@backstage/plugin-catalog-node": "^1.11.0",
     "@types/express": "*",
