@@ -12,6 +12,9 @@ on:
     paths:
       - 'backstage/plugins/knative-event-mesh-backend/**'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+
 jobs:
   release:
     name: Release
@@ -26,17 +29,24 @@ jobs:
         with:
           go-version: '>=1.21.1' # from https://github.com/openshift-knative/hack/blob/main/go.mod#L3
 
+      - name: Checkout openshift-knative/hack
+        uses: actions/checkout@v4
+        with:
+          repository: 'openshift-knative/hack'
+          ref: 'main'
+          path: ./src/github.com/openshift-knative/hack
+
+      - name: Install sobranch
+        run: |
+          go install ./cmd/sobranch
+        working-directory: ./src/github.com/openshift-knative/hack
+
       - name: Setup release name for release branch push
         if: github.event_name == 'push'
         run: |
           BRANCH=$(git rev-parse --abbrev-ref HEAD) #e.g. release-v1.33
           echo "Release branch: ${BRANCH}"
           
-          cd /tmp
-          git clone https://github.com/openshift-knative/hack.git
-          cd hack
-          go install ./cmd/sobranch
-          cd -
           SO_RELEASE_NAME=$( $(go env GOPATH)/bin/sobranch --upstream-version "${BRANCH}") # input format: "release-v1.11" or "release-1.11" or "v1.11" or "1.11"
           # SO_RELEASE_NAME will be something like "release-1.33"
           echo "SO_RELEASE_NAME: ${SO_RELEASE_NAME}"
