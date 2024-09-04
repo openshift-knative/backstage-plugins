@@ -1,3 +1,3 @@
 project:
-  tag: knative-v1.12
+  tag: knative-v1.14
   imagePrefix: knative-backstage-plugins
