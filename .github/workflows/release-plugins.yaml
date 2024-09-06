@@ -9,8 +9,12 @@ on:
   push:
     branches:
       - 'release-*'
-    paths:
-      - 'backstage/plugins/knative-event-mesh-backend/**'
+# Ideally, we would want to only publish the plugin on NPM when there's an actual code change in the plugin.
+# However, using the path filters block workflow execution on initial branch creation.
+# So, let's publish on every push to a release branch.
+# see https://github.com/openshift-knative/backstage-plugins/pull/15#issuecomment-2333324099
+#    paths:
+#      - 'backstage/plugins/knative-event-mesh-backend/**'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
