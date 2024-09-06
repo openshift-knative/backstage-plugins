@@ -34,7 +34,7 @@ jobs:
       - name: Setup Golang
         uses: actions/setup-go@v5
         with:
-          go-version: '>=1.21.1' # from https://github.com/openshift-knative/hack/blob/main/go.mod#L3
+          go-version-file: go.mod
 
       - name: Checkout openshift-knative/hack
         uses: actions/checkout@v4
