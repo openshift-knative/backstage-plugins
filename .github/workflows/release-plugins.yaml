@@ -31,6 +31,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          filters: |
+            event_mesh_plugin:
+              - 'backstage/plugins/knative-event-mesh-backend/**'
+
       - name: Setup Golang
         uses: actions/setup-go@v5
         with:
@@ -49,7 +56,7 @@ jobs:
         working-directory: ./src/github.com/openshift-knative/hack
 
       - name: Setup release name for release branch push
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' && steps.changes.outputs.event_mesh_plugin == 'true'
         run: |
           BRANCH=$(git rev-parse --abbrev-ref HEAD) #e.g. release-v1.33
           echo "Release branch: ${BRANCH}"
@@ -126,7 +133,7 @@ jobs:
           yarn build:all
 
       - name: Update version of knative-event-mesh-backend plugin
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' && steps.changes.outputs.event_mesh_plugin == 'true'
         shell: bash
         working-directory: ./backstage/plugins/knative-event-mesh-backend
         run: |
@@ -142,7 +149,7 @@ jobs:
 
       - name: Publish knative-event-mesh-backend plugin
         uses: JS-DevTools/npm-publish@v3
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' && steps.changes.outputs.event_mesh_plugin == 'true'
         with:
           token: ${{ secrets.NPM_TOKEN }}
           access: public
