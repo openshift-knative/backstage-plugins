@@ -1,4 +1,4 @@
-name: Backstage knative-event-mesh-backend
+name: Backstage plugin release
 
 on:
   pull_request:
@@ -9,6 +9,9 @@ on:
   push:
     branches:
       - 'release-*'
+      # Do not run on push to release-next branch. We don't want to publish the plugin on every push to release-next.
+      # It might be okay to do so, but sobranch tool doesn't work well with release-next branch name.
+      - '!release-next'
 # Ideally, we would want to only publish the plugin on NPM when there's an actual code change in the plugin.
 # However, using the path filters block workflow execution on initial branch creation.
 # So, let's publish on every push to a release branch.
