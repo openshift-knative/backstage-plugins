@@ -58,7 +58,7 @@ jobs:
       - name: Setup release name for release branch push
         # do not run the step on PRs against release-next branch. run it on:
         # PRs against release-* branches, push to release-* branches, and creation of release-* branches
-        if: github.event_name == 'create' || steps.changes.outputs.event_mesh_plugin == 'true'
+        if: github.event.created || steps.changes.outputs.event_mesh_plugin == 'true'
         run: |
           BRANCH=$(git rev-parse --abbrev-ref HEAD) #e.g. release-v1.33
           echo "Release branch: ${BRANCH}"
@@ -137,7 +137,7 @@ jobs:
       - name: Update version of knative-event-mesh-backend plugin
         # do not run the step on PRs against release-next branch. run it on:
         # PRs against release-* branches, push to release-* branches, and creation of release-* branches
-        if: github.event_name == 'create' || steps.changes.outputs.event_mesh_plugin == 'true'
+        if: github.event.created || steps.changes.outputs.event_mesh_plugin == 'true'
         shell: bash
         working-directory: ./backstage/plugins/knative-event-mesh-backend
         run: |
@@ -155,7 +155,7 @@ jobs:
         uses: JS-DevTools/npm-publish@v3
         # do not run the step on PRs against release-next branch. run it on:
         # PRs against release-* branches, push to release-* branches, and creation of release-* branches
-        if: github.event_name == 'create' || steps.changes.outputs.event_mesh_plugin == 'true'
+        if: github.event.created || steps.changes.outputs.event_mesh_plugin == 'true'
         with:
           token: ${{ secrets.NPM_TOKEN }}
           access: public
