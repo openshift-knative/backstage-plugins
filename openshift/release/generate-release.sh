@@ -6,7 +6,7 @@ source $(dirname $0)/resolve.sh
 
 root_dir=$(dirname $0)/../..
 
-release=$(yq '.project.tag' openshift/project.yaml)
+release=$(yq r openshift/project.yaml project.tag)
 release=${release/knative-/}
 
 echo "Release: $release"
