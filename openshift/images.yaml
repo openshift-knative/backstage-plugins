@@ -1,0 +1,7 @@
+knative.dev/backstage-plugins/backends/cmd/eventmesh: registry.ci.openshift.org/openshift/knative-backstage-plugins-eventmesh:knative-nightly
+knative.dev/eventing/test/test_images/event-sender: registry.ci.openshift.org/openshift/knative-backstage-plugins-test-event-sender:knative-nightly
+knative.dev/eventing/test/test_images/print: registry.ci.openshift.org/openshift/knative-backstage-plugins-test-print:knative-nightly
+knative.dev/eventing/test/test_images/recordevents: registry.ci.openshift.org/openshift/knative-backstage-plugins-test-recordevents:knative-nightly
+knative.dev/eventing/test/test_images/request-sender: registry.ci.openshift.org/openshift/knative-backstage-plugins-test-request-sender:knative-nightly
+knative.dev/pkg/apiextensions/storageversion/cmd/migrate: registry.ci.openshift.org/openshift/knative-backstage-plugins-migrate:knative-nightly
+knative.dev/reconciler-test/cmd/eventshub: registry.ci.openshift.org/openshift/knative-backstage-plugins-test-eventshub:knative-nightly
