@@ -1,0 +1,3 @@
+knative.dev/backstage-plugins/backends/cmd/eventmesh: registry.ci.openshift.org/openshift/knative-backstage-plugins-eventmesh:knative-nightly
+knative.dev/pkg/apiextensions/storageversion/cmd/migrate: registry.ci.openshift.org/openshift/knative-backstage-plugins-migrate:knative-nightly
+knative.dev/reconciler-test/cmd/eventshub: registry.ci.openshift.org/openshift/knative-backstage-plugins-test-eventshub:knative-nightly
