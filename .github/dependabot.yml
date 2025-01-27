@@ -1,0 +1,48 @@
+version: "2"
+updates:
+    - package-ecosystem: gomod
+      directories:
+        - /
+      schedule:
+        interval: weekly
+      ignore:
+        - dependency-name: knative.dev/*
+        - dependency-name: k8s.io/*
+          update-types:
+            - version-update:semver-major
+            - version-update:semver-minor
+        - dependency-name: github.com/openshift/*
+          update-types:
+            - version-update:semver-major
+            - version-update:semver-minor
+        - dependency-name: sigs.k8s.io/controller-runtime
+          update-types:
+            - version-update:semver-major
+            - version-update:semver-minor
+      target-branch: release-v1.15
+      commit-message:
+        prefix: '[release-v1.15][gomod]'
+      open-pull-requests-limit: 10
+    - package-ecosystem: gomod
+      directories:
+        - /
+      schedule:
+        interval: weekly
+      ignore:
+        - dependency-name: knative.dev/*
+        - dependency-name: k8s.io/*
+          update-types:
+            - version-update:semver-major
+            - version-update:semver-minor
+        - dependency-name: github.com/openshift/*
+          update-types:
+            - version-update:semver-major
+            - version-update:semver-minor
+        - dependency-name: sigs.k8s.io/controller-runtime
+          update-types:
+            - version-update:semver-major
+            - version-update:semver-minor
+      target-branch: release-v1.16
+      commit-message:
+        prefix: '[release-v1.16][gomod]'
+      open-pull-requests-limit: 10
