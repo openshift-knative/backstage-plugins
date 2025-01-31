@@ -3,7 +3,7 @@ module knative.dev/backstage-plugins
 go 1.22.7
 
 require (
-	github.com/getkin/kin-openapi v0.128.0
+	github.com/getkin/kin-openapi v0.129.0
 	github.com/google/go-cmp v0.6.0
 	github.com/gorilla/mux v1.8.1
 	github.com/oapi-codegen/nethttp-middleware v1.0.2
@@ -57,7 +57,6 @@ require (
 	github.com/hashicorp/go-retryablehttp v0.7.7 // indirect
 	github.com/hashicorp/golang-lru v1.0.2 // indirect
 	github.com/imdario/mergo v0.3.16 // indirect
-	github.com/invopop/yaml v0.3.1 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/kelseyhightower/envconfig v1.4.0 // indirect
@@ -66,6 +65,8 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/mohae/deepcopy v0.0.0-20170929034955-c48cc78d4826 // indirect
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
+	github.com/oasdiff/yaml v0.0.0-20241210131133-6b86fb107d80 // indirect
+	github.com/oasdiff/yaml3 v0.0.0-20241210130736-a94c01f36349 // indirect
 	github.com/openzipkin/zipkin-go v0.4.3 // indirect
 	github.com/perimeterx/marshmallow v1.1.5 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
