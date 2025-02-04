@@ -7,9 +7,9 @@ require (
 	github.com/hashicorp/go-cleanhttp v0.5.2
 	github.com/hashicorp/golang-lru v1.0.2
 	go.uber.org/zap v1.27.0
-	k8s.io/api v0.30.3
-	k8s.io/apimachinery v0.30.3
-	k8s.io/client-go v0.30.3
+	k8s.io/api v0.30.9
+	k8s.io/apimachinery v0.30.9
+	k8s.io/client-go v0.30.9
 	knative.dev/eventing v0.43.0
 	knative.dev/hack v0.0.0-20241010131451-05b2fb30cb4d
 	knative.dev/pkg v0.0.0-20241021183759-9b9d535af5ad
