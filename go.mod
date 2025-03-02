@@ -12,7 +12,7 @@ require (
 	k8s.io/client-go v0.27.6
 	knative.dev/eventing v0.39.1
 	knative.dev/hack v0.0.0-20231122182901-eb352426ecc1
-	knative.dev/pkg v0.0.0-20231204120332-9386ad6703ee
+	knative.dev/pkg 0372c089c78f
 	knative.dev/reconciler-test v0.0.0-20231024072442-5fb93a792b99
 )
 
