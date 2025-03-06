@@ -1,6 +1,6 @@
 module knative.dev/backstage-plugins
 
-go 1.23
+go 1.23.0
 
 require (
 	github.com/getkin/kin-openapi v0.128.0
