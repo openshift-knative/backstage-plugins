@@ -25,6 +25,8 @@ spec:
         - GO_RUNTIME=registry.access.redhat.com/ubi8/ubi-minimal
         - JAVA_BUILDER=registry.access.redhat.com/ubi8/openjdk-21
         - JAVA_RUNTIME=registry.access.redhat.com/ubi8/openjdk-21-runtime
+        - NODE_BUILDER=registry.access.redhat.com/ubi8/nodejs-20
+        - NODE_RUNTIME=registry.access.redhat.com/ubi8/nodejs-20
         - VERSION=1.36.0
     - name: git-url
       value: '{{source_url}}'
@@ -39,6 +41,15 @@ spec:
         - linux/x86_64
     - name: revision
       value: '{{revision}}'
+  taskRunSpecs:
+    - pipelineTaskName: sast-shell-check
+      stepSpecs:
+        - name: sast-shell-check
+          computeResources:
+            requests:
+              memory: 4Gi
+            limits:
+              memory: 4Gi
   pipelineRef:
     name: docker-build
   taskRunTemplate: {}
