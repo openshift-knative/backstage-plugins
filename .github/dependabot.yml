@@ -64,6 +64,46 @@ updates:
       commit-message:
         prefix: '[release-v1.15][gomod]'
       open-pull-requests-limit: 10
+    - package-ecosystem: npm
+      directories:
+        - /backstage
+        - /backstage/plugins/knative-event-mesh-backend
+        - /backstage/packages/app
+        - /backstage/packages/backend
+        - /backstage/plugins/knative-event-mesh-backend/dist-dynamic
+      schedule:
+        interval: weekly
+      groups:
+        major:
+            update-types:
+                - major
+            patterns:
+                - '*'
+            applies-to: version-updates
+        minor:
+            update-types:
+                - minor
+            patterns:
+                - '*'
+            applies-to: version-updates
+        patch:
+            update-types:
+                - patch
+            patterns:
+                - '*'
+            applies-to: version-updates
+        security:
+            update-types:
+                - patch
+                - minor
+                - major
+            patterns:
+                - '*'
+            applies-to: security-updates
+      target-branch: release-v1.15
+      commit-message:
+        prefix: '[release-v1.15][npm]'
+      open-pull-requests-limit: 10
     - package-ecosystem: gomod
       directories:
         - /
@@ -128,6 +168,46 @@ updates:
       commit-message:
         prefix: '[release-v1.16][gomod]'
       open-pull-requests-limit: 10
+    - package-ecosystem: npm
+      directories:
+        - /backstage
+        - /backstage/plugins/knative-event-mesh-backend
+        - /backstage/packages/app
+        - /backstage/packages/backend
+        - /backstage/plugins/knative-event-mesh-backend/dist-dynamic
+      schedule:
+        interval: weekly
+      groups:
+        major:
+            update-types:
+                - major
+            patterns:
+                - '*'
+            applies-to: version-updates
+        minor:
+            update-types:
+                - minor
+            patterns:
+                - '*'
+            applies-to: version-updates
+        patch:
+            update-types:
+                - patch
+            patterns:
+                - '*'
+            applies-to: version-updates
+        security:
+            update-types:
+                - patch
+                - minor
+                - major
+            patterns:
+                - '*'
+            applies-to: security-updates
+      target-branch: release-v1.16
+      commit-message:
+        prefix: '[release-v1.16][npm]'
+      open-pull-requests-limit: 10
     - package-ecosystem: gomod
       directories:
         - /
@@ -191,4 +271,44 @@ updates:
       target-branch: release-v1.17
       commit-message:
         prefix: '[release-v1.17][gomod]'
+      open-pull-requests-limit: 10
+    - package-ecosystem: npm
+      directories:
+        - /backstage
+        - /backstage/plugins/knative-event-mesh-backend
+        - /backstage/packages/app
+        - /backstage/packages/backend
+        - /backstage/plugins/knative-event-mesh-backend/dist-dynamic
+      schedule:
+        interval: weekly
+      groups:
+        major:
+            update-types:
+                - major
+            patterns:
+                - '*'
+            applies-to: version-updates
+        minor:
+            update-types:
+                - minor
+            patterns:
+                - '*'
+            applies-to: version-updates
+        patch:
+            update-types:
+                - patch
+            patterns:
+                - '*'
+            applies-to: version-updates
+        security:
+            update-types:
+                - patch
+                - minor
+                - major
+            patterns:
+                - '*'
+            applies-to: security-updates
+      target-branch: release-v1.17
+      commit-message:
+        prefix: '[release-v1.17][npm]'
       open-pull-requests-limit: 10
