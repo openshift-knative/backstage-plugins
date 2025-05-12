@@ -10,9 +10,9 @@ require (
 	github.com/oapi-codegen/oapi-codegen/v2 v2.4.1
 	github.com/oapi-codegen/runtime v1.1.1
 	go.uber.org/zap v1.27.0
-	k8s.io/api v0.31.4
-	k8s.io/apimachinery v0.31.4
-	k8s.io/client-go v0.31.4
+	k8s.io/api v0.31.8
+	k8s.io/apimachinery v0.31.8
+	k8s.io/client-go v0.31.8
 	k8s.io/utils v0.0.0-20240711033017-18e509b52bc8
 	knative.dev/eventing v0.44.0
 	knative.dev/hack v0.0.0-20250116150306-c142b4835bc5
