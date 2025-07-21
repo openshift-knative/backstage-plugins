@@ -3,10 +3,10 @@ module knative.dev/backstage-plugins
 go 1.22.9
 
 require (
-	github.com/google/go-cmp v0.6.0
+	github.com/google/go-cmp v0.7.0
 	github.com/hashicorp/go-cleanhttp v0.5.2
 	github.com/hashicorp/golang-lru v1.0.2
-	go.uber.org/zap v1.26.0
+	go.uber.org/zap v1.27.0
 	k8s.io/api v0.27.16
 	k8s.io/apimachinery v0.27.16
 	k8s.io/client-go v0.27.16
