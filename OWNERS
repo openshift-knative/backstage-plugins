@@ -1,11 +1,18 @@
-# Sponsored by the Eventing WG
-# At least one WG lead from https://github.com/knative/community/blob/main/working-groups/WORKING-GROUPS.md#eventing
-# must be in the "approvers" list.
+# The OWNERS file is used by prow to automatically merge approved PRs.
+
+# DO NOT EDIT! File generated via https://github.com/openshift-knative/hack/tree/main/config.
+
 approvers:
-- technical-oversight-committee
-- knative-release-leads
-- eventing-writers
-- backstage-plugins-writers
+- aliok
+- Cali0707
+- creydr
+- lberk
+- matzew
+- rudyredhat1
 
 reviewers:
-- backstage-plugins-reviewers
+- aliok
+- Cali0707
+- creydr
+- lberk
+- matzew
