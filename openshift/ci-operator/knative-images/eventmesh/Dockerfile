@@ -9,7 +9,8 @@ COPY . .
 
 ENV CGO_ENABLED=1
 ENV GOEXPERIMENT=strictfipsruntime
-ENV GOFLAGS="-mod=mod"
+ENV GOFLAGS='-mod=mod'
+ENV ENV GOFLAGS="-mod=mod"
 
 RUN go build -tags strictfipsruntime -o /usr/bin/main ./backends/cmd/eventmesh
 
