@@ -1,5 +1,5 @@
 # DO NOT EDIT! Generated Dockerfile for backends/cmd/eventmesh.
-ARG GO_BUILDER=registry.ci.openshift.org/openshift/release:rhel-8-release-golang-1.24-openshift-4.17
+ARG GO_BUILDER=registry.ci.openshift.org/openshift/release:rhel-8-release-golang-1.24-openshift-4.20
 ARG GO_RUNTIME=registry.access.redhat.com/ubi8/ubi-minimal
 
 FROM $GO_BUILDER as builder
@@ -9,6 +9,7 @@ COPY . .
 
 ENV CGO_ENABLED=1
 ENV GOEXPERIMENT=strictfipsruntime
+ENV GOFLAGS='-mod=mod'
 
 RUN go build -tags strictfipsruntime -o /usr/bin/main ./backends/cmd/eventmesh
 
