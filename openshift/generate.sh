@@ -9,5 +9,4 @@ GOFLAGS='' go install github.com/openshift-knative/hack/cmd/generate@latest
 
 $(go env GOPATH)/bin/generate \
   --root-dir "${repo_root_dir}" \
-  --generators dockerfile \
-  --additional-build-env "ENV GOFLAGS=\"-mod=mod\""
+  --generators dockerfile
