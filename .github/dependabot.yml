@@ -19,6 +19,10 @@ updates:
           update-types:
             - version-update:semver-major
             - version-update:semver-minor
+        - dependency-name: istio.io/*
+          update-types:
+            - version-update:semver-major
+            - version-update:semver-minor
       groups:
         major:
             update-types:
@@ -50,8 +54,6 @@ updates:
             patterns:
                 - '*'
             applies-to: version-updates
-            exclude-patterns:
-                - istio.io/*
         security:
             update-types:
                 - patch
@@ -123,6 +125,10 @@ updates:
           update-types:
             - version-update:semver-major
             - version-update:semver-minor
+        - dependency-name: istio.io/*
+          update-types:
+            - version-update:semver-major
+            - version-update:semver-minor
       groups:
         major:
             update-types:
@@ -154,8 +160,6 @@ updates:
             patterns:
                 - '*'
             applies-to: version-updates
-            exclude-patterns:
-                - istio.io/*
         security:
             update-types:
                 - patch
@@ -227,6 +231,10 @@ updates:
           update-types:
             - version-update:semver-major
             - version-update:semver-minor
+        - dependency-name: istio.io/*
+          update-types:
+            - version-update:semver-major
+            - version-update:semver-minor
       groups:
         major:
             update-types:
@@ -258,8 +266,6 @@ updates:
             patterns:
                 - '*'
             applies-to: version-updates
-            exclude-patterns:
-                - istio.io/*
         security:
             update-types:
                 - patch
@@ -331,6 +337,10 @@ updates:
           update-types:
             - version-update:semver-major
             - version-update:semver-minor
+        - dependency-name: istio.io/*
+          update-types:
+            - version-update:semver-major
+            - version-update:semver-minor
       groups:
         major:
             update-types:
@@ -362,8 +372,6 @@ updates:
             patterns:
                 - '*'
             applies-to: version-updates
-            exclude-patterns:
-                - istio.io/*
         security:
             update-types:
                 - patch
@@ -415,4 +423,110 @@ updates:
       target-branch: release-v1.18
       commit-message:
         prefix: '[release-v1.18][npm]'
+      open-pull-requests-limit: 10
+    - package-ecosystem: gomod
+      directories:
+        - /
+      schedule:
+        interval: weekly
+      ignore:
+        - dependency-name: knative.dev/*
+        - dependency-name: k8s.io/*
+          update-types:
+            - version-update:semver-major
+            - version-update:semver-minor
+        - dependency-name: github.com/openshift/*
+          update-types:
+            - version-update:semver-major
+            - version-update:semver-minor
+        - dependency-name: sigs.k8s.io/controller-runtime
+          update-types:
+            - version-update:semver-major
+            - version-update:semver-minor
+        - dependency-name: istio.io/*
+          update-types:
+            - version-update:semver-major
+            - version-update:semver-minor
+      groups:
+        major:
+            update-types:
+                - major
+            patterns:
+                - '*'
+            applies-to: version-updates
+            exclude-patterns:
+                - knative.dev/*
+                - istio.io/*
+                - k8s.io/*
+                - github.com/openshift/*
+                - sigs.k8s.io/controller-runtime*
+        minor:
+            update-types:
+                - minor
+            patterns:
+                - '*'
+            applies-to: version-updates
+            exclude-patterns:
+                - knative.dev/*
+                - k8s.io/*
+                - github.com/openshift/*
+                - sigs.k8s.io/controller-runtime*
+                - istio.io/*
+        patch:
+            update-types:
+                - patch
+            patterns:
+                - '*'
+            applies-to: version-updates
+        security:
+            update-types:
+                - patch
+                - minor
+                - major
+            patterns:
+                - '*'
+            applies-to: security-updates
+      target-branch: release-v1.19
+      commit-message:
+        prefix: '[release-v1.19][gomod]'
+      open-pull-requests-limit: 10
+    - package-ecosystem: npm
+      directories:
+        - /backstage
+        - /backstage/plugins/knative-event-mesh-backend
+        - /backstage/packages/app
+        - /backstage/packages/backend
+        - /backstage/plugins/knative-event-mesh-backend/dist-dynamic
+      schedule:
+        interval: weekly
+      groups:
+        major:
+            update-types:
+                - major
+            patterns:
+                - '*'
+            applies-to: version-updates
+        minor:
+            update-types:
+                - minor
+            patterns:
+                - '*'
+            applies-to: version-updates
+        patch:
+            update-types:
+                - patch
+            patterns:
+                - '*'
+            applies-to: version-updates
+        security:
+            update-types:
+                - patch
+                - minor
+                - major
+            patterns:
+                - '*'
+            applies-to: security-updates
+      target-branch: release-v1.19
+      commit-message:
+        prefix: '[release-v1.19][npm]'
       open-pull-requests-limit: 10
