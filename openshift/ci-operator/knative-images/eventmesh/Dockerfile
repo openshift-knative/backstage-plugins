@@ -23,11 +23,12 @@ USER 65532
 
 LABEL \
       com.redhat.component="openshift-serverless-1-backstage-plugins-eventmesh-rhel8-container" \
-      name="openshift-serverless-1/backstage-plugins-eventmesh-rhel8" \
+      name="openshift-serverless-1/kn-backstage-plugins-eventmesh-rhel8" \
       version=$VERSION \
       summary="Red Hat OpenShift Serverless 1 Backstage Plugins Eventmesh" \
       maintainer="serverless-support@redhat.com" \
       description="Red Hat OpenShift Serverless 1 Backstage Plugins Eventmesh" \
+      cpe="cpe:/a:redhat:openshift_serverless:1.36::el8" \
       io.k8s.display-name="Red Hat OpenShift Serverless 1 Backstage Plugins Eventmesh" \
       io.k8s.description="Red Hat OpenShift Serverless Backstage Plugins Eventmesh" \
       io.openshift.tags="eventmesh"
