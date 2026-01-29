@@ -1,0 +1,1 @@
+knative.dev/backstage-plugins/backends/cmd/eventmesh: registry.ci.openshift.org/openshift/knative-backstage-plugins-eventmesh:knative-v1.21
