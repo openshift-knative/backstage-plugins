@@ -4,10 +4,10 @@ metadata:
   annotations:
     image-controller.appstudio.redhat.com/update-component-image: "true"
   labels:
-    appstudio.redhat.com/application: serverless-operator-139
+    appstudio.redhat.com/application: serverless-operator-137
     appstudio.redhat.com/component: kn-backstage-plugins-eventmesh-119
   name: kn-backstage-plugins-eventmesh-119
 spec:
   image:
-    name: serverless-operator-139/kn-backstage-plugins-eventmesh
+    name: serverless-operator-137/kn-backstage-plugins-eventmesh
     visibility: public
