@@ -10,10 +10,10 @@ require (
 	github.com/oapi-codegen/oapi-codegen/v2 v2.4.1
 	github.com/oapi-codegen/runtime v1.1.1
 	go.uber.org/zap v1.27.1
-	k8s.io/api v0.34.3
-	k8s.io/apiextensions-apiserver v0.34.3
-	k8s.io/apimachinery v0.34.3
-	k8s.io/client-go v0.34.3
+	k8s.io/api v0.34.5
+	k8s.io/apiextensions-apiserver v0.34.5
+	k8s.io/apimachinery v0.34.5
+	k8s.io/client-go v0.34.5
 	k8s.io/utils v0.0.0-20250604170112-4c0f3b243397
 	knative.dev/eventing v0.48.0
 	knative.dev/hack v0.0.0-20260120115810-bf6758cba446
@@ -117,8 +117,8 @@ require (
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	k8s.io/apiserver v0.34.3 // indirect
-	k8s.io/code-generator v0.34.3 // indirect
+	k8s.io/apiserver v0.34.5 // indirect
+	k8s.io/code-generator v0.34.5 // indirect
 	k8s.io/gengo v0.0.0-20240404160639-a0386bf69313 // indirect
 	k8s.io/gengo/v2 v2.0.0-20250604051438-85fd79dbfd9f // indirect
 	k8s.io/klog v1.0.0 // indirect
