@@ -1,0 +1,170 @@
+name: Backstage plugin release
+
+on:
+  pull_request:
+    branches:
+      - 'release-*'
+    paths:
+      - 'backstage/plugins/knative-event-mesh-backend/**'
+  push:
+    branches:
+      - 'release-*'
+      # Do not run on push to release-next branch. We don't want to publish the plugin on every push to release-next.
+      # It might be okay to do so, but sobranch tool doesn't work well with release-next branch name.
+      - '!release-next'
+# Ideally, we would want to only publish the plugin on NPM when there's an actual code change in the plugin.
+# However, using the path filters block workflow execution on initial branch creation.
+# So, let's publish on every push to a release branch.
+# see https://github.com/openshift-knative/backstage-plugins/pull/15#issuecomment-2333324099
+#    paths:
+#      - 'backstage/plugins/knative-event-mesh-backend/**'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          filters: |
+            event_mesh_plugin:
+              - 'backstage/plugins/knative-event-mesh-backend/**'
+
+      - name: Setup Golang
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Checkout openshift-knative/hack
+        uses: actions/checkout@v4
+        with:
+          repository: 'openshift-knative/hack'
+          ref: 'main'
+          path: ./src/github.com/openshift-knative/hack
+
+      - name: Install sobranch
+        run: |
+          go install ./cmd/sobranch
+        working-directory: ./src/github.com/openshift-knative/hack
+
+      - name: Setup release name for release branch push
+        # do not run the step on PRs against release-next branch. run it on:
+        # PRs against release-* branches, push to release-* branches, and creation of release-* branches
+        if: github.event.created || steps.changes.outputs.event_mesh_plugin == 'true'
+        run: |
+          BRANCH=$(git rev-parse --abbrev-ref HEAD) #e.g. release-v1.33
+          echo "Release branch: ${BRANCH}"
+          
+          SO_RELEASE_NAME=$( $(go env GOPATH)/bin/sobranch --upstream-version "${BRANCH}") # input format: "release-v1.11" or "release-1.11" or "v1.11" or "1.11"
+          # SO_RELEASE_NAME will be something like "release-1.33"
+          echo "SO_RELEASE_NAME: ${SO_RELEASE_NAME}"
+          
+          # split the release name to get the version number
+          ## e.g. release-1.33 -> 1.33
+          BASE_RELEASE_VERSION=${SO_RELEASE_NAME#*-}
+          echo "BASE_RELEASE_VERSION: ${BASE_RELEASE_VERSION}"
+          
+          RELEASE_NAME="${BASE_RELEASE_VERSION}.0"
+          
+          EXISTING_RELEASES=""
+          
+          if EXISTING_RELEASES=$(npm view @openshift-knative/plugin-knative-event-mesh-backend versions --json); then
+            echo "Package information fetched successfully"
+            echo "Existing releases: ${EXISTING_RELEASES}"
+            PATCH_RELEASES=$(echo "${EXISTING_RELEASES}" | grep ${BASE_RELEASE_VERSION})
+            if [ -z "${PATCH_RELEASES}" ]; then
+              echo "No existing PATCH_RELEASES found for ${BASE_RELEASE_VERSION}"
+              echo "Going to publish a new .0 patch release"
+              RELEASE_NAME="${BASE_RELEASE_VERSION}.0"
+            else
+              echo "Existing PATCH_RELEASES found for ${BASE_RELEASE_VERSION}"
+              PATCH=$(echo "${PATCH_RELEASES}" | tail -1 | tr -d '"' | awk -F \. '{print $3+1}')
+              RELEASE_NAME="${BASE_RELEASE_VERSION}.${PATCH}"
+            fi
+          else
+            echo "Error fetching package information. Going to publish a new .0 patch release"
+            RELEASE_NAME="${BASE_RELEASE_VERSION}.0"
+          fi
+          
+          echo "RELEASE_NAME: ${RELEASE_NAME}"
+          echo "RELEASE_NAME=${RELEASE_NAME}" >> $GITHUB_ENV
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: 'backstage/.nvmrc'
+          cache: 'yarn'
+          cache-dependency-path: 'backstage/yarn.lock'
+
+      - name: Print environment
+        run: |
+          node --version
+          yarn --version
+
+      - name: Install dependencies
+        shell: bash
+        working-directory: ./backstage
+        run: yarn --prefer-offline --frozen-lockfile
+
+      - name: Install tooling
+        shell: bash
+        working-directory: ./backstage
+        run: npm install @backstage/cli -g
+
+      - name: Run tests
+        shell: bash
+        working-directory: ./backstage
+        run: |
+          export PATH="./node_modules/.bin/:$PATH"
+          yarn test
+
+      - name: Build
+        shell: bash
+        working-directory: ./backstage
+        run: |
+          export PATH="./node_modules/.bin/:$PATH"
+          yarn tsc
+          yarn build:all
+
+      - name: Update version of knative-event-mesh-backend plugin
+        # do not run the step on PRs against release-next branch. run it on:
+        # PRs against release-* branches, push to release-* branches, and creation of release-* branches
+        if: github.event.created || steps.changes.outputs.event_mesh_plugin == 'true'
+        shell: bash
+        working-directory: ./backstage/plugins/knative-event-mesh-backend
+        run: |
+          export PATH="./node_modules/.bin/:$PATH"
+          yarn version --new-version ${RELEASE_NAME} --no-git-tag-version
+
+      - name: Prepack knative-event-mesh-backend plugin
+        shell: bash
+        working-directory: ./backstage/plugins/knative-event-mesh-backend
+        run: |
+          export PATH="./node_modules/.bin/:$PATH"
+          yarn prepack
+
+      - name: Publish knative-event-mesh-backend plugin
+        uses: JS-DevTools/npm-publish@v3
+        # do not run the step on PRs against release-next branch. run it on:
+        # PRs against release-* branches, push to release-* branches, and creation of release-* branches
+        if: github.event.created || steps.changes.outputs.event_mesh_plugin == 'true'
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          access: public
+          package: backstage/plugins/knative-event-mesh-backend
+          tag: latest
+
+      - name: Postpack knative-event-mesh-backend plugin
+        shell: bash
+        working-directory: ./backstage/plugins/knative-event-mesh-backend
+        run: |
+          export PATH="./node_modules/.bin/:$PATH"
+          yarn postpack
