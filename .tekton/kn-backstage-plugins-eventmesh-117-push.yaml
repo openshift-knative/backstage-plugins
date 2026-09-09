@@ -27,7 +27,7 @@ spec:
         - JAVA_RUNTIME=registry.access.redhat.com/ubi9/openjdk-21-runtime
         - NODE_BUILDER=registry.access.redhat.com/ubi9/nodejs-20
         - NODE_RUNTIME=registry.access.redhat.com/ubi9/nodejs-20
-        - VERSION=1.37.1
+        - VERSION=1.37.2
     - name: git-url
       value: '{{source_url}}'
     - name: hermetic
@@ -39,12 +39,10 @@ spec:
     - name: additional-tags
       value:
         - $(context.pipelineRun.uid)-{{revision}}
-        - 1.37.1
+        - 1.37.2
         - latest
     - name: prefetch-input
       value: '[{"path":".","type":"gomod"}]'
-    - name: enable-cache-proxy
-      value: "false"
   taskRunSpecs:
     - pipelineTaskName: sast-shell-check
       stepSpecs:
