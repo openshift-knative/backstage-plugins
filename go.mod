@@ -3,12 +3,12 @@ module knative.dev/backstage-plugins
 go 1.25.0
 
 require (
-	github.com/getkin/kin-openapi v0.151.0
+	github.com/getkin/kin-openapi v0.152.0
 	github.com/google/go-cmp v0.7.0
 	github.com/gorilla/mux v1.8.1
-	github.com/oapi-codegen/nethttp-middleware v1.2.0
+	github.com/oapi-codegen/nethttp-middleware v1.3.1
 	github.com/oapi-codegen/oapi-codegen/v2 v2.8.0
-	github.com/oapi-codegen/runtime v1.7.0
+	github.com/oapi-codegen/runtime v1.8.0
 	go.uber.org/zap v1.28.0
 	k8s.io/api v0.31.14
 	k8s.io/apimachinery v0.31.14
